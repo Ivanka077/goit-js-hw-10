@@ -5,10 +5,17 @@ const breedSelect = document.querySelector(".breed-select");
 const catInfoDiv = document.querySelector(".cat-info");
 const loader = document.querySelector(".loader");
 const error = document.querySelector(".error");
+const loaderr = document.querySelector(".loaderr");
+
 
 function populateBreedsSelect() {
   loader.style.display = "block";
+    loader.style.fontWeight = "bold";
+  loaderr.style.display = "block";
   breedSelect.style.display = "none";
+  error.style.display = "none";
+  
+  
 
   fetchBreeds()
     .then((breeds) => {
@@ -19,18 +26,21 @@ function populateBreedsSelect() {
         breedSelect.appendChild(option);
       });
 
-      loader.style.display = "none";
+        loader.style.display = "none";
+        loaderr.style.display = "none";
       breedSelect.style.display = "block";
     })
     .catch(error => {
       console.error('Failed to fetch breeds:', error);
       loader.style.display = 'none';
+      loaderr.style.display = "none";
       error.style.display = 'block';
     });
 }
 
 function displayCatInfoByBreed(breedId) {
-  loader.style.display = "block";
+    loader.style.display = "block";
+    loaderr.style.display = "block";
     catInfoDiv.style.display = "none";
     error.style.display = "none";
 
@@ -45,15 +55,15 @@ function displayCatInfoByBreed(breedId) {
 
       const name = document.createElement("p");
         name.textContent = `Breed: ${cat.breed}`;
-        name.classList.add = ("bold-text");
+        name.classList.add("bold-text");
 
       const description = document.createElement("p");
         description.textContent = `Description: ${cat.description}`;
-        description.classList.add = ("bold-text");
+        description.classList.add("bold-text");
 
       const temperament = document.createElement("p");
         temperament.textContent = `Temperament: ${cat.temperament}`;
-        temperament.classList.add = ("bold-text");
+        temperament.classList.add("bold-text");
 
       catInfoDiv.innerHTML = "";
       catInfoDiv.appendChild(image);
@@ -62,10 +72,12 @@ function displayCatInfoByBreed(breedId) {
       catInfoDiv.appendChild(temperament);
 
       loader.style.display = "none";
+      loaderr.style.display = "none";
       catInfoDiv.style.display = "block";
     })
     .catch(() => {
       loader.style.display = "none";
+      loaderr.style.display = "none";
       error.style.display = "block";
     });
 }
